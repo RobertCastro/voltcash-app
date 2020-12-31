@@ -2,7 +2,7 @@
     <div>
         <header class="max-w-lg mx-auto">
             <a href="#">
-                <h1 class="text-4xl font-bold text-white text-center mt-5">Laravel Inertia Auth</h1>
+                <h1 class="text-4xl font-bold text-white text-center mt-5">Voltcash</h1>
             </a>
         </header>
 
