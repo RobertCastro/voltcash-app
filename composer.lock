@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d45648de6f9987e55d2e2e77fd71208",
+    "content-hash": "629d1f65f663f0e1e92b93bfe7e9e274",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1118,6 +1118,47 @@
                 }
             ],
             "time": "2020-06-13T08:05:20+00:00"
+        },
+        {
+            "name": "laravel-lang/lang",
+            "version": "7.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Laravel-Lang/lang.git",
+                "reference": "679a65755db37b35acd36a5e0ca51e055815a00a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Laravel-Lang/lang/zipball/679a65755db37b35acd36a5e0ca51e055815a00a",
+                "reference": "679a65755db37b35acd36a5e0ca51e055815a00a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*"
+            },
+            "suggest": {
+                "andrey-helldar/laravel-lang-publisher": "Easy installation and update of translation files for your project",
+                "arcanedev/laravel-lang": "Translations manager and checker for Laravel 5",
+                "overtrue/laravel-lang": "Command to add languages in your project"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Laravel-Lang Team"
+                }
+            ],
+            "description": "Languages for Laravel",
+            "keywords": [
+                "lang",
+                "languages",
+                "laravel",
+                "lpm"
+            ],
+            "time": "2020-11-30T20:35:41+00:00"
         },
         {
             "name": "laravel/fortify",
@@ -5003,23 +5044,24 @@
         },
         {
             "name": "tightenco/ziggy",
-            "version": "0.9.4",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/ziggy.git",
-                "reference": "82ea6ec6cb6ab3545b0245310b2a424316fe48d8"
+                "reference": "4777dafd683873978ccc529085187d03b750d39f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/ziggy/zipball/82ea6ec6cb6ab3545b0245310b2a424316fe48d8",
-                "reference": "82ea6ec6cb6ab3545b0245310b2a424316fe48d8",
+                "url": "https://api.github.com/repos/tighten/ziggy/zipball/4777dafd683873978ccc529085187d03b750d39f",
+                "reference": "4777dafd683873978ccc529085187d03b750d39f",
                 "shasum": ""
             },
             "require": {
                 "laravel/framework": ">=5.4@dev"
             },
             "require-dev": {
-                "orchestra/testbench": "^5.0"
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^9.2"
             },
             "type": "library",
             "extra": {
@@ -5046,17 +5088,21 @@
                 {
                     "name": "Jake Bathman",
                     "email": "jake@tighten.co"
+                },
+                {
+                    "name": "Jacob Baker-Kretzmar",
+                    "email": "jacob@tighten.co"
                 }
             ],
             "description": "Generates a Blade directive exporting all of your named Laravel routes. Also provides a nice route() helper function in JavaScript.",
-            "homepage": "https://github.com/tightenco/ziggy",
+            "homepage": "https://github.com/tighten/ziggy",
             "keywords": [
                 "Ziggy",
                 "javascript",
                 "laravel",
                 "routes"
             ],
-            "time": "2020-06-05T14:42:41+00:00"
+            "time": "2020-12-06T22:07:45+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

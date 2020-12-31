@@ -63270,6 +63270,11 @@ __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
   methods: {
+    route: window.route
+  }
+});
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
+  methods: {
     route: route
   }
 });
