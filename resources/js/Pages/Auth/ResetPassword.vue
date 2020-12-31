@@ -2,13 +2,13 @@
     <auth-layout>
         <template #toolbar>
             <section>
-                <h3 class="font-bold text-2xl">Welcome</h3>
-                <p class="text-gray-600 pt-2">Login to your account</p>
+                <h3 class="font-bold text-2xl">Bienvenid@</h3>
+                <p class="text-gray-600 pt-2">Crea una nueva contraseña</p>
             </section>
         </template>
 
         <form
-            @submit.prevent="login"
+            @submit.prevent="updatePassword"
             class="flex flex-col"
         >
             <div class="mb-6 pt-3 rounded bg-gray-200">
@@ -16,7 +16,7 @@
                     class="block text-gray-700 text-sm font-bold mb-2 ml-3"
                     for="email"
                 >
-                    Email
+                    Correo electrónico
                 </label>
                 <input
                     v-model="form.email"
@@ -30,7 +30,7 @@
                     class="block text-gray-700 text-sm font-bold mb-2 ml-3"
                     for="password"
                 >
-                    Password
+                    Tu nueva contraseña
                 </label>
                 <input
                     v-model="form.password"
@@ -39,27 +39,30 @@
                     class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
                 />
             </div>
-
-            <div class="flex justify-end">
-                <inertia-link
-                    :href="route('password.request')"
-                    class="text-sm text-purple-600 hover:text-purple-700 hover:underline mb-6"
+            <div class="mb-6 pt-3 rounded bg-gray-200">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2 ml-3"
+                    for="password_confirmation"
                 >
-                    have you forgotten your password?
-                </inertia-link>
+                    Confirma tu nueva contraseña
+                </label>
+                <input
+                    v-model="form.password_confirmation"
+                    type="password"
+                    id="password_confirmation"
+                    class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
+                />
             </div>
             <button
-                class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
+                class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
                 type="submit"
             >
-                Log in
+                Actualizar mi contraseña
             </button>
         </form>
 
         <template #footer>
-            <p class="text-white">
-                You do not have an account? <inertia-link :href="route('register')" class="font-bold hover:underline">Sign up!</inertia-link>
-            </p>
+            <p class="text-white">¿Ya tienes una cuenta? <inertia-link :href="route('login')" class="font-bold hover:underline">¡Accede!</inertia-link></p>
         </template>
     </auth-layout>
 </template>
@@ -67,7 +70,7 @@
 <script>
     import AuthLayout from "../../Layouts/AuthLayout";
     export default {
-        name: "Login",
+        name: "ResetPassword",
         components: {AuthLayout},
         props: {
             errors: Object,
@@ -77,14 +80,16 @@
                 form: {
                     email: null,
                     password: null,
+                    password_confirmation: null
                 }
             }
         },
         methods: {
-            login() {
-                this.$inertia.post(this.route("login"), this.form).then(() => {
+            updatePassword() {
+                this.form.token = this.$page.request.token;
+                this.$inertia.post(this.route("password.update"), this.form).then(() => {
 
-                })
+                });
             }
         }
     }

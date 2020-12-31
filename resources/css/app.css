@@ -3,6 +3,6 @@
 @import 'tailwindcss/utilities';
 
 .body-bg {
-    background-color: #9921e8;
-    background-image: linear-gradient(315deg, #9921e8 0%, #5f72be 74%);
+    background-color: #00b150;
+    background-image: linear-gradient(272deg, #00b150 1%, #0c8f4e 74%)
 }
