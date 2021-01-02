@@ -18,38 +18,64 @@ class PermissionSeeder extends Seeder
     {
         // Administrator
         $AdministratorRole = Role::create(['name' => 'Administrator']);
-        $Administrator = User::factory()->create([
+        $administrator = User::factory()->create([
             'name' => 'administrator',
             'email' => 'admin@voltcash.com',
             'password' => bcrypt("1234"),
         ]);
-        $Administrator->assignRole($AdministratorRole);
+        $administrator->assignRole($AdministratorRole);
 
         // Vendedor
         $SellerRole = Role::create(['name' => 'Seller']);
-        $Seller = User::factory()->create([
+        $seller = User::factory()->create([
             'name' => 'seller',
             'email' => 'seller@voltcash.com',
             'password' => bcrypt("1234"),
         ]);
-        $Seller->assignRole($SellerRole);
+        $seller->assignRole($SellerRole);
 
         // Cumplimiento
         $ComplianceRole = Role::create(['name' => 'Compliance']);
-        $Compliance = User::factory()->create([
+        $compliance = User::factory()->create([
             'name' => 'compliance',
             'email' => 'compliance@voltcash.com',
             'password' => bcrypt("1234"),
         ]);
-        $Compliance->assignRole($ComplianceRole);
+        $compliance->assignRole($ComplianceRole);
 
         // Tendero
         $ShopkeeperRole = Role::create(['name' => 'Shopkeeper']);
-        $Shopkeeper = User::factory()->create([
+        $shopkeeper = User::factory()->create([
             'name' => 'shopkeeper',
             'email' => 'shopkeeper@voltcash.com',
             'password' => bcrypt("1234"),
         ]);
-        $Shopkeeper->assignRole($ShopkeeperRole);
+        $shopkeeper->assignRole($ShopkeeperRole);
+
+
+        // PERMISOS 
+        Permission::create(['name' => 'list stores']);
+        Permission::create(['name' => 'create stores']);
+        Permission::create(['name' => 'show stores']);
+        Permission::create(['name' => 'update stores']);
+        Permission::create(['name' => 'delete stores']);
+        Permission::create(['name' => 'show own stores']);
+        Permission::create(['name' => 'update own stores']);
+        Permission::create(['name' => 'delete own stores']);
+        Permission::create(['name' => 'restore own stores']);
+
+        // Asign permissions 
+
+        $seller->givePermissionTo([
+            'create stores', 'show own stores', 'update own stores', 'delete own stores', 'restore own stores'
+        ]);
+
+        $compliance->givePermissionTo([
+            'list stores', 'update stores', 'delete stores'
+        ]);
+
+        $shopkeeper->givePermissionTo([
+            'update own stores'
+        ]);
     }
 }
