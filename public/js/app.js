@@ -49691,11 +49691,11 @@ var render = function() {
             return [
               _c("section", [
                 _c("h3", { staticClass: "font-bold text-2xl" }, [
-                  _vm._v("Bienvenid@")
+                  _vm._v("Welcome")
                 ]),
                 _vm._v(" "),
                 _c("p", { staticClass: "text-gray-600 pt-2" }, [
-                  _vm._v("Crea una nueva contraseña")
+                  _vm._v("Create a new password")
                 ])
               ])
             ]
@@ -49710,14 +49710,14 @@ var render = function() {
                 "p",
                 { staticClass: "text-white" },
                 [
-                  _vm._v("¿Ya tienes una cuenta? "),
+                  _vm._v("Do you already have an account? "),
                   _c(
                     "inertia-link",
                     {
                       staticClass: "font-bold hover:underline",
                       attrs: { href: _vm.route("login") }
                     },
-                    [_vm._v("¡Accede!")]
+                    [_vm._v("Sign in!")]
                   )
                 ],
                 1
@@ -49749,7 +49749,7 @@ var render = function() {
                 staticClass: "block text-gray-700 text-sm font-bold mb-2 ml-3",
                 attrs: { for: "email" }
               },
-              [_vm._v("\n                Correo electrónico\n            ")]
+              [_vm._v("\n                Email\n            ")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -49789,7 +49789,7 @@ var render = function() {
                 staticClass: "block text-gray-700 text-sm font-bold mb-2 ml-3",
                 attrs: { for: "password" }
               },
-              [_vm._v("\n                Tu nueva contraseña\n            ")]
+              [_vm._v("\n                Your new password\n            ")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -49825,7 +49825,7 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\n                Confirma tu nueva contraseña\n            "
+                  "\n                Confirm your new password\n            "
                 )
               ]
             ),
@@ -49865,7 +49865,7 @@ var render = function() {
                 "bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200",
               attrs: { type: "submit" }
             },
-            [_vm._v("\n            Actualizar mi contraseña\n        ")]
+            [_vm._v("\n            Update my password\n        ")]
           )
         ]
       )

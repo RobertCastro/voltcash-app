@@ -2,8 +2,8 @@
     <auth-layout>
         <template #toolbar>
             <section>
-                <h3 class="font-bold text-2xl">Bienvenid@</h3>
-                <p class="text-gray-600 pt-2">Crea una nueva contraseña</p>
+                <h3 class="font-bold text-2xl">Welcome</h3>
+                <p class="text-gray-600 pt-2">Create a new password</p>
             </section>
         </template>
 
@@ -16,7 +16,7 @@
                     class="block text-gray-700 text-sm font-bold mb-2 ml-3"
                     for="email"
                 >
-                    Correo electrónico
+                    Email
                 </label>
                 <input
                     v-model="form.email"
@@ -30,7 +30,7 @@
                     class="block text-gray-700 text-sm font-bold mb-2 ml-3"
                     for="password"
                 >
-                    Tu nueva contraseña
+                    Your new password
                 </label>
                 <input
                     v-model="form.password"
@@ -44,7 +44,7 @@
                     class="block text-gray-700 text-sm font-bold mb-2 ml-3"
                     for="password_confirmation"
                 >
-                    Confirma tu nueva contraseña
+                    Confirm your new password
                 </label>
                 <input
                     v-model="form.password_confirmation"
@@ -57,12 +57,12 @@
                 class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
                 type="submit"
             >
-                Actualizar mi contraseña
+                Update my password
             </button>
         </form>
 
         <template #footer>
-            <p class="text-white">¿Ya tienes una cuenta? <inertia-link :href="route('login')" class="font-bold hover:underline">¡Accede!</inertia-link></p>
+            <p class="text-white">Do you already have an account? <inertia-link :href="route('login')" class="font-bold hover:underline">Sign in!</inertia-link></p>
         </template>
     </auth-layout>
 </template>

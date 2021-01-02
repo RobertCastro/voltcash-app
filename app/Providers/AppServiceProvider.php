@@ -31,6 +31,11 @@ class AppServiceProvider extends ServiceProvider
                     "success" => session("success"),
                     "error" => session("error"),
                 ];
+            },
+            "request" => function () {
+                return [
+                    "token" => request()->route("token")
+                ];
             }
         ]);
     }
