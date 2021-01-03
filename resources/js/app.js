@@ -1,3 +1,5 @@
+import Permissions from "./Plugins/Permissions";
+
 require('./bootstrap');
 
 require('moment');
@@ -18,6 +20,7 @@ Vue.mixin({ methods: { route } });
 Vue.use(InertiaApp);
 Vue.use(InertiaForm);
 Vue.use(PortalVue);
+Vue.use(Permissions);
 
 const app = document.getElementById('app');
 

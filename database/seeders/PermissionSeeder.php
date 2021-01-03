@@ -67,7 +67,7 @@ class PermissionSeeder extends Seeder
         // Asign permissions 
 
         $seller->givePermissionTo([
-            'create stores', 'show own stores', 'update own stores', 'delete own stores', 'restore own stores'
+            'show own stores', 'update own stores'
         ]);
 
         $compliance->givePermissionTo([
