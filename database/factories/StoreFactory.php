@@ -33,6 +33,7 @@ class StoreFactory extends Factory
             "email" => $this->faker->email,
             "outside_picture_store" => $this->faker->imageUrl(200, 200, 'cats'),
             "inside_pictures_store" => $this->faker->imageUrl(200, 200, 'cats'),
+            "status" => $this->faker->randomElement(['Pending', 'Approved', 'Declined', 'Finished']),
 
 
         ];
