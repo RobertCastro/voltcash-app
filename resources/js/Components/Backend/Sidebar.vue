@@ -12,8 +12,8 @@
             <nav class="mt-10">
                 <inertia-link
                     class="flex items-center mt-4 py-2 px-6 border-l-4"
-                    :class="[$page.currentRouteName === 'dashboard' ? activeClass : inactiveClass]"
-                    href="/dashboard"
+                    :class="[$page.currentRouteName === 'stores.index' ? activeClass : inactiveClass]"
+                    href="/stores"
                 >
                 <svg class="h-6 w-6 text-grey-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />

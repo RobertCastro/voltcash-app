@@ -19,9 +19,14 @@ Route::get('/', function () {
     return redirect("/login");
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia\Inertia::render('Dashboard');
-})->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return Inertia\Inertia::render('Dashboard');
+// })->name('dashboard');
 
-Route::put("stores/{store}/restore", [StoreController::class, "restore"])->name("stores.restore");;
-Route::resource("stores", StoreController::class);
+Route::group(["middleware" => ['auth:sanctum', 'verified']], function () {
+
+    Route::put("stores/{store}/restore", [StoreController::class, "restore"])->name("stores.restore");;
+    Route::resource("stores", StoreController::class);
+});
+
+
