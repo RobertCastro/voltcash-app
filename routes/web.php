@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,9 @@ Route::group(["middleware" => ['auth:sanctum', 'verified']], function () {
 
     Route::put("stores/{store}/restore", [StoreController::class, "restore"])->name("stores.restore");;
     Route::resource("stores", StoreController::class);
+
+    Route::resource("users", UsersController::class);
+    
 });
 
 

@@ -1,5 +1,5 @@
 <template>
-    <app-layout>
+    <backend-layout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Profile
@@ -33,11 +33,11 @@
                 <delete-user-form class="mt-10 sm:mt-0" />
             </div>
         </div>
-    </app-layout>
+    </backend-layout>
 </template>
 
 <script>
-    import AppLayout from '@/Layouts/AppLayout'
+    import BackendLayout from '@/Layouts/BackendLayout'
     import DeleteUserForm from './DeleteUserForm'
     import JetSectionBorder from '@/Jetstream/SectionBorder'
     import LogoutOtherBrowserSessionsForm from './LogoutOtherBrowserSessionsForm'
@@ -49,7 +49,7 @@
         props: ['sessions'],
 
         components: {
-            AppLayout,
+            BackendLayout,
             DeleteUserForm,
             JetSectionBorder,
             LogoutOtherBrowserSessionsForm,
