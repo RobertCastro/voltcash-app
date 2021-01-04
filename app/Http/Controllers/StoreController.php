@@ -25,7 +25,7 @@ class StoreController extends Controller
 
             $this->authorize("viewAny", Store::class);
             return Inertia::render("Stores/Index", [
-                "stores" => Store::withTrashed()->paginate(10)
+                "stores" => Store::paginate(10)
             ]);
             
         } catch (\Throwable $th) {

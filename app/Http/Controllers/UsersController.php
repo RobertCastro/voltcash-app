@@ -59,8 +59,9 @@ class UsersController extends Controller
 
     public function destroy(User $user)
     {
-        $this->authorize('delete', $user);
-        return "Can Delete";
+        // $this->authorize('delete', $user);
+        $user->delete();
+        return redirect()->route('users.index')->with('success', 'User deleted!');
     }
 
     public function restore(int $id)
