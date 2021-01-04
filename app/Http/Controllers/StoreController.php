@@ -61,7 +61,8 @@ class StoreController extends Controller
     public function destroy(Store $store)
     {
         $this->authorize('delete', $store);
-        return "Can Delete";
+        $store->delete();
+        return redirect()->route('stores.index')->with('success', 'Store deleted!');
     }
 
     public function restore(int $id)

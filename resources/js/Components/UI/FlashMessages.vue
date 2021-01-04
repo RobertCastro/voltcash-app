@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="$page.flash.success && show" class="mb-8 flex items-center justify-between bg-green-500 rounded w-full">
+        <div v-if="$page.flash.success && show" class="mb-8 flex items-center justify-between bg-green-500 w-full">
             <div class="flex items-center">
                 <svg class="ml-4 mr-2 flex-shrink-0 w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><polygon points="0 11 2 9 7 14 18 3 20 5 7 18" /></svg>
                 <div class="py-4 text-white text-sm font-medium">{{ $page.flash.success }}</div>

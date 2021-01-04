@@ -79,6 +79,21 @@
             }
         },
 
+        methods: {
+            remove(store) {
+                const formData = new FormData;
+                formData.append("_method", "DELETE");
+                this.$inertia.post(this.route("stores.destroy", store.id), formData)
+                    .then(() => {})
+            },
+            restore(store) {
+                const formData = new FormData;
+                formData.append("_method", "PUT");
+                this.$inertia.post(this.route("stores.restore", store.id), formData)
+                    .then(() => {})
+            }
+        },
+
         computed: {
             formattedDate() {
                 return moment(this.store.updated_at).format('lll');
