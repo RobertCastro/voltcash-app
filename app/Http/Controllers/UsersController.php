@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
@@ -25,8 +26,18 @@ class UsersController extends Controller
         try {
 
             $this->authorize("viewAny", User::class);
+
+            $users = User::whereHas('roles', function ($q) {
+                $q
+                ->Where('name', 'Administrator')
+                ->orWhere('name', 'Seller')
+                ->orWhere('name', 'Compliance');
+            })
+            // ->where('active_status', 1)
+            ->paginate(20);
+
             return Inertia::render("Users/Index", [
-                "users" => User::paginate(10)
+                "users" => $users
             ]);
         } catch (\Throwable $th) {
             throw $th;
