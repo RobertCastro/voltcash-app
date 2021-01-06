@@ -21,7 +21,8 @@ class PermissionSeeder extends Seeder
         $administrator = User::factory()->create([
             'name' => 'administrator',
             'email' => 'admin@voltcash.com',
-            'password' => bcrypt("1234"),
+            // 'password' => bcrypt("1234"),
+            'password' => "1234",
         ]);
         $administrator->assignRole($AdministratorRole);
 
@@ -30,7 +31,8 @@ class PermissionSeeder extends Seeder
         $seller = User::factory()->create([
             'name' => 'seller',
             'email' => 'seller@voltcash.com',
-            'password' => bcrypt("1234"),
+            // 'password' => bcrypt("1234"),
+            'password' => "1234",
         ]);
         $seller->assignRole($SellerRole);
 
@@ -39,7 +41,8 @@ class PermissionSeeder extends Seeder
         $compliance = User::factory()->create([
             'name' => 'compliance',
             'email' => 'compliance@voltcash.com',
-            'password' => bcrypt("1234"),
+            // 'password' => bcrypt("1234"),
+            'password' => "1234",
         ]);
         $compliance->assignRole($ComplianceRole);
 
@@ -48,7 +51,8 @@ class PermissionSeeder extends Seeder
         $shopkeeper = User::factory()->create([
             'name' => 'shopkeeper',
             'email' => 'shopkeeper@voltcash.com',
-            'password' => bcrypt("1234"),
+            // 'password' => bcrypt("1234"),
+            'password' => "1234",
         ]);
         $shopkeeper->assignRole($ShopkeeperRole);
 
