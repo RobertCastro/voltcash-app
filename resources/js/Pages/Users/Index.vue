@@ -1,21 +1,20 @@
 <template>
     <backend-layout>
-        <div class="min-h-screen bg-gray-100">
-            <nav class="bg-white border-b border-gray-100">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex flex-wrap sm:flex-no-wrap items-center mb-2">
-                        <inertia-link
-                            v-if="$permissions.can([{name: 'create stores'}])"
-                            class="bg-green-500 p-2 hover:bg-green-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
-                            :href="route('stores.create')"
-                        >
-                        <svg class="h-6 w-6 text-grey-100 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
-                            <path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
-                        </svg>
-                            Add User
-                        </inertia-link>
-                    </div>
+        <div class="min-h-screen ">
+            <div class="">
+                <div class="flex flex-wrap sm:flex-no-wrap items-center mb-2">
+                    <button
+                        v-if="$permissions.can([{name: 'create stores'}])"
+                        class="bg-green-500 p-2 hover:bg-green-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200 cursor-pointer"
+                        @click="showModal = true"
+                    >
+                    <svg class="h-6 w-6 text-grey-100 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                    </svg>
+                        Add User
+                    </button>
+                </div>
+                <div class="bg-white rounded">
                     <div class="bg-white rounded shadow overflow-x-auto">
                         <table class="w-full whitespace-no-wrap">
                             <tr>
@@ -33,8 +32,36 @@
                     </div>
                     <pagination :links="users.links" />
                 </div>
-            </nav>
+            </div>
         </div>
+        <dialog-modal :show="showModal" @close="showModal = false" :maxWidth="maxWidth">
+                <template #title>
+                    Add new User
+                </template>
+                 <template #content>
+                    <user-form :errors="errors" :form="form" @submit="submit">
+                        <template #buttons class="flex">
+                            <action-button
+                                @click.native="cancel()"
+                                class="btn-accions-cancel mr-10"
+                                type="button"
+                            >
+                            Cancel
+                            </action-button>
+                            <action-button
+                                :loading="processing"
+                                class="btn-accions-ok"
+                                type="submit"
+                            >
+                            Create User
+                            </action-button>
+                        </template>
+                    </user-form>
+                </template>
+                 <template #footer>
+                </template>
+            </dialog-modal>
+
     </backend-layout>
 </template>
 
@@ -42,11 +69,59 @@
     import BackendLayout from "@/Layouts/BackendLayout";
     import User from "../../Components/Single/User";
     import Pagination from "../../Components/UI/Pagination";
+    import DialogModal from "../../Jetstream/DialogModal";
+    import DangerButton from "../../Jetstream/DangerButton";
+    import SecondaryButton from "../../Jetstream/SecondaryButton"
+    import UserForm from '../../Components/Forms/UserForm';
+    import ActionButton from '../../Components/Elements/ActionButton';
     export default {
         name: "Users",
-        components: {Pagination, User, BackendLayout},
+        components: {Pagination, User, BackendLayout, DialogModal, DangerButton, SecondaryButton,UserForm, ActionButton},
         props: {
             users: Object,
+            errors: Object,
         },
+        data() {
+            return {
+                processing: false,
+                showModal: false,
+                maxWidth: '3xl',
+                form: {
+                    name: null,
+                    email: null,
+                    password: null,
+                    rol: null,
+                }
+            }
+        },
+        methods: {
+            submit() {
+                this.processing = true;
+                this.$inertia.post(this.route('users.store'), this.form)
+                    .then(() => {
+
+                        this.processing = false;
+                        this.showModal = false;
+                        this.cancel();
+                        
+                    }).catch(e => {
+
+                        this.processing = false;
+                        this.form.name = '';
+                        this.form.email = '';
+                        this.form.password = '';
+                        this.form.rol = '';
+
+                    });
+            },
+            cancel() {
+                this.processing = false;
+                this.showModal = false;
+                this.form.name = '';
+                this.form.email = '';
+                this.form.password = '';
+                this.form.rol = '';
+            }
+        }
     }
 </script>

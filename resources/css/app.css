@@ -6,3 +6,61 @@
     background-color: #00b150;
     background-image: linear-gradient(272deg, #00b150 1%, #0c8f4e 74%)
 }
+
+.modal70{
+    width: 70% !important;
+}
+
+
+.btn-accions-ok {
+    @apply px-6 py-3 rounded bg-green-500 text-white text-sm font-bold whitespace-no-wrap uppercase;
+}
+
+.btn-accions-ok:hover {
+    @apply bg-green-800;
+}
+
+.btn-accions-cancel {
+    @apply px-5 py-2 rounded bg-gray-200 text-gray-500 border-2 border-gray-500 text-sm font-bold whitespace-no-wrap uppercase;
+}
+
+.btn-accions-cancel:hover {
+    @apply bg-gray-500 text-gray-200;
+}
+
+
+.btn-spinner,
+.btn-spinner:after {
+    border-radius: 50%;
+    width: 1.5em;
+    height: 1.5em;
+}
+
+
+.btn-spinner {
+    font-size: 10px;
+    position: relative;
+    text-indent: -9999em;
+    border-top: .2em solid white;
+    border-right: .2em solid white;
+    border-bottom: .2em solid white;
+    border-left: .2em solid transparent;
+    transform: translateZ(0);
+    animation: spinning 1s infinite linear;
+}
+.loading-upload{
+    font-size: 10px;
+    position: relative;
+    text-indent: -9999em;
+    border-top: .2em solid white;
+    border-right: .2em solid white;
+    border-bottom: .2em solid white;
+    border-left: .2em solid transparent;
+    transform: translateZ(0);
+    animation: spinning 1s infinite linear;
+}
+
+@keyframes spinning {
+    0% { transform: rotate(0deg) }
+    100% { transform: rotate(360deg) }
+}

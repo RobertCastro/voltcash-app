@@ -85,6 +85,7 @@
                     'lg': 'sm:max-w-lg',
                     'xl': 'sm:max-w-xl',
                     '2xl': 'sm:max-w-2xl',
+                    '3xl': 'modal70'
                 }[this.maxWidth]
             }
         }

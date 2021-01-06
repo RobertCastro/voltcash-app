@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use PhpParser\Node\Stmt\TryCatch;
 use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
@@ -44,10 +45,33 @@ class UsersController extends Controller
         }
     }
 
-    public function create()
+    public function store()
     {
-        $this->authorize('create', User::class);
-        return "Can Create";
+        // $this->authorize('create', User::class);
+        $this->validate(request(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
+            'rol' => ['required'],
+        ]);
+        
+        try {
+            $user = User::create(request([
+                'name',
+                'email',
+                'password',
+                'created_at' => date("Y-m-d H:i:s")
+            ]));
+
+            $user->roles()->attach(Role::where('name', request('rol'))->first());
+
+            return redirect()->route('users.index')->with('success', 'User created!');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+        
+        
     }
 
     public function show(User $user)
@@ -81,4 +105,5 @@ class UsersController extends Controller
         $this->authorize('restore', $user);
         return "Can Restore";
     }
+
 }
