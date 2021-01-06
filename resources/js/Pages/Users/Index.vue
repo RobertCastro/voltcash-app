@@ -60,7 +60,8 @@
                 </template>
                  <template #footer>
                 </template>
-            </dialog-modal>
+        </dialog-modal>
+        
 
     </backend-layout>
 </template>
@@ -74,6 +75,7 @@
     import SecondaryButton from "../../Jetstream/SecondaryButton"
     import UserForm from '../../Components/Forms/UserForm';
     import ActionButton from '../../Components/Elements/ActionButton';
+    
     export default {
         name: "Users",
         components: {Pagination, User, BackendLayout, DialogModal, DangerButton, SecondaryButton,UserForm, ActionButton},
@@ -121,7 +123,7 @@
                 this.form.email = '';
                 this.form.password = '';
                 this.form.rol = '';
-            }
+            },
         }
     }
 </script>

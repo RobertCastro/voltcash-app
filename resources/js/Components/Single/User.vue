@@ -29,7 +29,7 @@
                     <button
                         class="text-xs px-4 py-2 rounded-full bg-red-200 hover:bg-hp-400 hover:text-black text-gray-800 inline-flex items-center"
                         v-if="!user.deleted_at && $permissions.can([{name: 'delete stores'}, {name: 'delete own stores', owner: user.user_id}])"
-                        @click="remove(user)"
+                        @click="showModalDelete = true"
                     >
                     Delete
                     </button>
@@ -56,15 +56,48 @@
                 </svg>
             </inertia-link>
         </td> -->
+
+        <confirmation-modal :show="showModalDelete" @close="showModalDelete = false">
+            <template #title>
+                Deleted user
+            </template>
+
+            <template #content>
+                Are you sure you want to delete the data?
+            </template>
+
+            <template #footer>
+                <secondary-button @click.native="showModalDelete = false">
+                    Cancel
+                </secondary-button>
+
+                <danger-button @click.native="remove(user)" class="ml-2" :class="{ 'opacity-25': processing }" :disabled="processing">
+                    Delete
+                </danger-button>
+            </template>
+    </confirmation-modal>
     </tr>
+    
+
 </template>
 
 <script>
     import moment from 'moment';
+    import ConfirmationModal from "../../Jetstream/ConfirmationModal";
+    import SecondaryButton from "../../Jetstream/SecondaryButton";
+    import DangerButton from "../../Jetstream/DangerButton";
     export default {
         name: "User",
+        components: {SecondaryButton, ConfirmationModal, DangerButton},
         props: {
             user: Object,
+        },
+
+        data() {
+            return {
+                showModalDelete: false,
+                processing: false,
+            }
         },
 
         methods: {
