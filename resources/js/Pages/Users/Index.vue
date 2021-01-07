@@ -21,6 +21,7 @@
                                 <th class="py-2 px-2">Name</th>
                                 <th class="py-2 px-2">Rol</th>
                                 <th class="py-2 px-2">Email</th>
+                                <th class="py-2 px-2">Phone</th>
                                 <th class="py-2 px-2">Actions</th>
                             </tr>
                             <user
@@ -122,6 +123,7 @@
                     id: null,
                     name: null,
                     email: null,
+                    phone: null,
                     password: null,
                     rol: null,
                 },
@@ -143,6 +145,7 @@
                         this.processing = false;
                         this.form.name = '';
                         this.form.email = '';
+                        this.form.phone = '';
                         this.form.password = '';
                         this.form.rol = '';
 
@@ -154,6 +157,7 @@
                 this.showModalEdit = false;
                 this.form.name = '';
                 this.form.email = '';
+                this.form.phone = '';
                 this.form.password = '';
                 this.form.rol = '';
             },
@@ -162,6 +166,7 @@
                 this.form.id = userid;
                 this.form.name = userEdit.name;
                 this.form.email = userEdit.email;
+                this.form.phone = userEdit.phone;
                 this.form.rol = userEdit.roles[0].name;
                 this.showModalEdit = true;
             },

@@ -17,6 +17,9 @@
         <td class="border-t text-center md:text-left">
             {{ user.email }}
         </td>
+        <td class="border-t text-center md:text-left">
+            {{ user.phone }}
+        </td>
 
         <td class="border-t w-56">
             <div class="flex justify-center items-center">
@@ -128,6 +131,7 @@
                 this.showModalEdit = false;
                 this.form.name = '';
                 this.form.email = '';
+                this.form.phone = '';
                 this.form.password = '';
                 this.form.rol = '';
             },

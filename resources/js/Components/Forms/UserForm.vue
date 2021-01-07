@@ -19,6 +19,13 @@
     </div>
     <div class="mb-4">
         <text-input
+            label="Phone"
+            v-model="form.phone"
+            :error="errors.phone"
+        />
+    </div>
+    <div class="mb-4">
+        <text-input
             label="Password"
             v-model="form.password"
             :error="errors.password"

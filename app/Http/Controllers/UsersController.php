@@ -51,6 +51,7 @@ class UsersController extends Controller
         $this->validate(request(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'numeric', 'min:8'],
             'password' => ['required', 'string', 'min:8'],
             'rol' => ['required'],
         ]);
@@ -59,6 +60,7 @@ class UsersController extends Controller
             $user = User::create(request([
                 'name',
                 'email',
+                'phone',
                 'password',
                 'created_at' => date("Y-m-d H:i:s")
             ]));
@@ -89,6 +91,7 @@ class UsersController extends Controller
         $this->validate(request(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
+            'phone' => ['required', 'numeric', 'min:8'],
             'password' => ['nullable', 'string', 'min:8'],
             'rol' => ['required'],
         ]);
@@ -96,6 +99,7 @@ class UsersController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->phone = $request->phone;
 
         if ($request->password != '') {
             $user->password = $request->password;
