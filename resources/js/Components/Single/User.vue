@@ -29,7 +29,7 @@
                 </button>
                 <button
                     class="disabled text-xs px-4 py-1 rounded-xl shadow-lg bg-red-500 font-bold hover:bg-hp-400 text-gray-100 inline-flex items-center"
-                    v-if="!user.deleted_at && $permissions.can([{name: 'delete stores'}, {name: 'delete own stores', owner: user.user_id}])"
+                    v-if="!user.deleted_at && $permissions.can([{name: 'delete stores'}, {name: 'delete own stores', owner: user.user_id}]) && $page.user.name != user.name"
                     @click="showModalDelete = true" >
                     Delete
                 </button>
