@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -31,6 +32,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
     ];
 
     /**
@@ -69,5 +71,35 @@ class User extends Authenticatable
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
+    }
+
+    public function scopeFilter(Builder $query, array $filters)
+    {
+        if (!request("page")) {
+            session()->put("search", $filters['search'] ?? null);
+            session()->put("roles", $filters['roles'] ?? null);
+        }
+        $query->when(session("search"), function ($query, $search) {
+            $query->where('name', 'LIKE', '%' . $search . '%');
+        })->when(session("roles"), function ($query, $roles) {
+            if ($roles === 'administrator') {
+
+                $query->whereHas('roles', function ($q) {
+                    $q->where('name', 'Administrator');
+                })->get();
+
+            } elseif ($roles === 'seller') {
+
+                $query->whereHas('roles', function ($q) {
+                    $q->where('name', 'seller');
+                })->get();
+
+            } elseif ($roles === 'compliance') {
+                
+                $query->whereHas('roles', function ($q) {
+                    $q->where('name', 'compliance');
+                })->get();
+            }
+        });
     }
 }

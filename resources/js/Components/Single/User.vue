@@ -1,13 +1,13 @@
 <template>
     <tr class="hover:bg-gray-100 focus-within:bg-gray-100">
         <td class="border-t">
-            <inertia-link
-                class="px-6 py-4 flex items-center focus:text-indigo-500 cursor-pointer"
+            <button
+                class="px-6 py-4 flex items-center focus:text-green-500 cursor-pointer focus:outline-none focus:ring focus:font-bold "
                 @click="showModalDetail = true"
                 v-if="!user.deleted_at && $permissions.can([{name: 'show stores'}, {name: 'show own stores', owner: user.user_id}])" >
             {{ user.name }}
-            </inertia-link>
-            <p class="px-6 py-4 flex items-center focus:text-indigo-500" v-else >
+            </button>
+            <p class="px-6 py-4 flex items-center " v-else >
             {{ user.name }}
             </p>
         </td>
@@ -136,7 +136,7 @@
                 this.form.rol = '';
             },
             sendInfo(userid) {
-                
+                // console.log(userid)
                 this.$emit('openModalEdit', userid)
             }
         },

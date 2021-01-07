@@ -24,6 +24,11 @@ class UsersController extends Controller
     public function index()
     {
 
+        if (!session()->has("search")) {
+            session()->put("search", null);
+            session()->put("roles", null);
+        }
+
         try {
 
             // $this->authorize("viewAny", User::class);
@@ -35,11 +40,23 @@ class UsersController extends Controller
                 ->orWhere('name', 'Compliance');
             })
             // ->where('active_status', 1)
+            ->orderByDesc("id")
+            ->filter(request()->only("search", "roles"))
             ->paginate(20);
 
             return Inertia::render("Users/Index", [
-                "users" => $users
+                "users" => $users,
+                "filters" => session()->only(["search", "roles"]),
             ]);
+
+            // return Inertia::render("Projects/Index", [
+            //     "filters" => session()->only(["search", "trashed"]),
+            //     "users" => Project::with("user")
+            //     ->orderByDesc("id")
+            //     ->filter(request()->only("search", "trashed"))
+            //     ->paginate(5),
+            // ]);
+
         } catch (\Throwable $th) {
             throw $th;
         }

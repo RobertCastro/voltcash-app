@@ -31,7 +31,7 @@
             :error="errors.password"
         />
     </div>
-    <div class="mb-4" v-if="this.action = 'new'">
+    <div class="mb-4">
         <select-input
             label="Rol"
             v-model="form.rol"
@@ -59,7 +59,6 @@ export default {
     props: {
         errors: Object,
         form: Object,
-        action: ''
     }
 }
 </script>
