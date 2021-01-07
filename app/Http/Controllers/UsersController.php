@@ -26,7 +26,7 @@ class UsersController extends Controller
 
         try {
 
-            $this->authorize("viewAny", User::class);
+            // $this->authorize("viewAny", User::class);
 
             $users = User::whereHas('roles', function ($q) {
                 $q
@@ -69,27 +69,43 @@ class UsersController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
-
-        
         
     }
 
     public function show(User $user)
     {
-        $this->authorize('view', $user);
+        // $this->authorize('view', $user);
         return "Can Show";
     }
 
     public function edit(User $user)
     {
-        $this->authorize('update', $user);
-        return "Can Edit";
+        
     }
 
     public function update(Request $request, User $user)
     {
-        $this->authorize('update', $user);
-        return "Can Update";
+        // $this->authorize('update', $user);
+        $this->validate(request(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['nullable', 'string', 'min:8'],
+            'rol' => ['required'],
+        ]);
+
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        if ($request->password != '') {
+            $user->password = $request->password;
+        }
+
+        $user->save();
+        // $user->roles()->attach(1);
+
+        return redirect()->route('users.index')->with('success', 'User update');
+
     }
 
     public function destroy(User $user)

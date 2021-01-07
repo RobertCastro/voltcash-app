@@ -20,7 +20,7 @@ class PermissionSeeder extends Seeder
         $AdministratorRole = Role::create(['name' => 'Administrator']);
         $administrator = User::factory()->create([
             'name' => 'administrator',
-            'email' => 'admin@voltcash.com',
+            'email' => 'admin@admin.com',
             // 'password' => bcrypt("1234"),
             'password' => "1234",
         ]);

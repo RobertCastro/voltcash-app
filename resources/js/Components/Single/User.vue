@@ -1,10 +1,18 @@
 <template>
     <tr class="hover:bg-gray-100 focus-within:bg-gray-100">
-        <td class="border-t px-6 py-4 flex items-center focus:text-indigo-500">
+        <td class="border-t">
+            <inertia-link
+                class="px-6 py-4 flex items-center focus:text-indigo-500 cursor-pointer"
+                @click="showModalDetail = true"
+                v-if="!user.deleted_at && $permissions.can([{name: 'show stores'}, {name: 'show own stores', owner: user.user_id}])" >
             {{ user.name }}
+            </inertia-link>
+            <p class="px-6 py-4 flex items-center focus:text-indigo-500" v-else >
+            {{ user.name }}
+            </p>
         </td>
         <td class="border-t">
-            {{ formattedDate }}
+            {{ user.roles[0].name }}
         </td>
         <td class="border-t text-center md:text-left">
             {{ user.email }}
@@ -12,73 +20,68 @@
 
         <td class="border-t w-56">
             <div class="flex justify-center items-center">
-                <inertia-link
-                    :href="route('stores.show', user.id)"
-                    class="disabled text-xs px-4 py-2 rounded-full bg-gray-200 hover:bg-hp-400 hover:text-black text-gray-800 inline-flex items-center"
-                    v-if="!user.deleted_at && $permissions.can([{name: 'show stores'}, {name: 'show own stores', owner: user.user_id}])"
-                >
-                Detail
-                </inertia-link>
-                <inertia-link
-                    :href="route('stores.edit', user.id)"
-                    class="disabled text-xs px-4 py-2 rounded-full bg-gray-200 hover:bg-hp-400 hover:text-black text-gray-800 inline-flex items-center"
+                <button
+                    @click="sendInfo(user.id)"
+                    class="disabled text-xs px-4 py-1 mr-3 rounded-xl shadow-lg bg-indigo-500 font-bold hover:bg-hp-400 text-gray-100 inline-flex items-center"
                     v-if="!user.deleted_at && $permissions.can([{name: 'update stores'}, {name: 'update own stores', owner: user.user_id}])"
                 >
                 Edit
-                </inertia-link>
-                    <button
-                        class="text-xs px-4 py-2 rounded-full bg-red-200 hover:bg-hp-400 hover:text-black text-gray-800 inline-flex items-center"
-                        v-if="!user.deleted_at && $permissions.can([{name: 'delete stores'}, {name: 'delete own stores', owner: user.user_id}])"
-                        @click="showModalDelete = true"
-                    >
+                </button>
+                <button
+                    class="disabled text-xs px-4 py-1 rounded-xl shadow-lg bg-red-500 font-bold hover:bg-hp-400 text-gray-100 inline-flex items-center"
+                    v-if="!user.deleted_at && $permissions.can([{name: 'delete stores'}, {name: 'delete own stores', owner: user.user_id}])"
+                    @click="showModalDelete = true" >
                     Delete
-                    </button>
-                    <button
-                        class="text-xs px-4 py-2 rounded-full bg-red-200 hover:bg-hp-400 hover:text-black text-gray-800 inline-flex items-center"
-                        v-if="user.deleted_at && $permissions.can([{name: 'restore stores'}, {name: 'restore own stores', owner: user.user_id}])"
-                        @click="restore(user)"
-                    >
+                </button>
+                <button
+                    class="disabled text-xs px-4 py-1 rounded-xl shadow-lg bg-indigo-400 font-bold hover:bg-hp-400 text-gray-100 inline-flex items-center"
+                    v-if="user.deleted_at && $permissions.can([{name: 'restore stores'}, {name: 'restore own stores', owner: user.user_id}])"
+                    @click="restore(user)">
                     Restore
-                    </button>
+                </button>
+                <button
+                    class="px-4 flex items-center cursor-pointer"
+                    @click="showModalDetail = true"
+                    v-if="!user.deleted_at && $permissions.can([{name: 'show stores'}, {name: 'show own stores', owner: user.user_id}])" >
+                    <svg
+                        class="block w-6 h-6 fill-gray-400"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20">
+                        <polygon points="12.95 10.707 13.657 10 8 4.343 6.586 5.757 10.828 10 6.586 14.243 8 15.657 12.95 10.707" />
+                    </svg>
+                </button>
             </div>
         </td>
 
-        <!-- <td class="border-t w-px">
-            <inertia-link
-                class="px-4 flex items-center"
-                :href="route('dashboard.edit', dato.id)"
-            >
-                <svg
-                    class="block w-6 h-6 fill-gray-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20">
-                    <polygon points="12.95 10.707 13.657 10 8 4.343 6.586 5.757 10.828 10 6.586 14.243 8 15.657 12.95 10.707" />
-                </svg>
-            </inertia-link>
-        </td> -->
-
+        <!-- Delete user -->
         <confirmation-modal :show="showModalDelete" @close="showModalDelete = false">
             <template #title>
                 Deleted user
             </template>
-
             <template #content>
                 Are you sure you want to delete the data?
             </template>
-
             <template #footer>
                 <secondary-button @click.native="showModalDelete = false">
                     Cancel
                 </secondary-button>
-
                 <danger-button @click.native="remove(user)" class="ml-2" :class="{ 'opacity-25': processing }" :disabled="processing">
                     Delete
                 </danger-button>
             </template>
-    </confirmation-modal>
+        </confirmation-modal>
+        <!-- Detail user --> 
+        <dialog-modal :show="showModalDetail" @close="showModalDetail = false" :maxWidth="maxWidthDetail">
+            <template #title>
+                Detail user <strong>{{user.name}}</strong>
+            </template>
+            <template #content>
+            </template>
+            <template #footer>
+            </template>
+        </dialog-modal>
+        
     </tr>
-    
-
 </template>
 
 <script>
@@ -86,17 +89,24 @@
     import ConfirmationModal from "../../Jetstream/ConfirmationModal";
     import SecondaryButton from "../../Jetstream/SecondaryButton";
     import DangerButton from "../../Jetstream/DangerButton";
+    import DialogModal from "../../Jetstream/DialogModal";
+    import UserForm from '../../Components/Forms/UserForm';
+
     export default {
         name: "User",
-        components: {SecondaryButton, ConfirmationModal, DangerButton},
+        components: {SecondaryButton, ConfirmationModal, DangerButton, DialogModal, UserForm},
+        
         props: {
             user: Object,
+            errors: Object,
         },
 
         data() {
             return {
                 showModalDelete: false,
+                showModalDetail: false,
                 processing: false,
+                maxWidthDetail: '2xl',
             }
         },
 
@@ -112,6 +122,18 @@
                 formData.append("_method", "PUT");
                 this.$inertia.post(this.route("users.restore", user.id), formData)
                     .then(() => {})
+            },
+            cancel() {
+                this.processing = false;
+                this.showModalEdit = false;
+                this.form.name = '';
+                this.form.email = '';
+                this.form.password = '';
+                this.form.rol = '';
+            },
+            sendInfo(userid) {
+                
+                this.$emit('openModalEdit', userid)
             }
         },
 

@@ -19,7 +19,7 @@
                         <table class="w-full whitespace-no-wrap">
                             <tr>
                                 <th class="py-2 px-2">Name</th>
-                                <th class="py-2 px-2">Last Update</th>
+                                <th class="py-2 px-2">Rol</th>
                                 <th class="py-2 px-2">Email</th>
                                 <th class="py-2 px-2">Actions</th>
                             </tr>
@@ -27,6 +27,7 @@
                                 v-for="user in users.data"
                                 :key="user.id"
                                 :user="user"
+                                @openModalEdit="onClickEdit"
                             />
                         </table>
                     </div>
@@ -34,6 +35,7 @@
                 </div>
             </div>
         </div>
+        <!-- New user -->
         <dialog-modal :show="showModal" @close="showModal = false" :maxWidth="maxWidth">
                 <template #title>
                     Add new User
@@ -60,6 +62,32 @@
                 </template>
                  <template #footer>
                 </template>
+        </dialog-modal>
+        <!-- Edit User -->
+        <dialog-modal :show="showModalEdit" @close="showModalEdit = false" :maxWidth="maxWidthEdit">
+            <template #title>
+                Edit user <strong>{{ form.name }}</strong>
+            </template>
+            <template #content>
+                <user-form :errors="errors" :form="form" @submit="update">
+                    <template #buttons class="flex">
+                        <action-button
+                            @click.native="cancel()"
+                            class="btn-accions-cancel mr-10"
+                            type="button">
+                                Cancel
+                        </action-button>
+                        <action-button
+                            :loading="processing"
+                            class="btn-accions-ok"
+                            type="submit">
+                                Update User
+                        </action-button>
+                    </template>
+                </user-form>
+            </template>
+            <template #footer>
+            </template>
         </dialog-modal>
         
 
@@ -88,12 +116,16 @@
                 processing: false,
                 showModal: false,
                 maxWidth: '3xl',
+                showModalEdit: false,
+                maxWidthEdit: '2xl',
                 form: {
+                    id: null,
                     name: null,
                     email: null,
                     password: null,
                     rol: null,
-                }
+                },
+
             }
         },
         methods: {
@@ -119,10 +151,27 @@
             cancel() {
                 this.processing = false;
                 this.showModal = false;
+                this.showModalEdit = false;
                 this.form.name = '';
                 this.form.email = '';
                 this.form.password = '';
                 this.form.rol = '';
+            },
+            onClickEdit(userid) {
+                let userEdit = this.users.data.find(user => user.id == userid);
+                this.form.id = userid;
+                this.form.name = userEdit.name;
+                this.form.email = userEdit.email;
+                this.form.rol = userEdit.roles[0].name;
+                this.showModalEdit = true;
+            },
+            update() {
+                this.processing = true;
+                this.$inertia.put(this.route('users.update', this.form.id), this.form)
+                .then(() => {
+                    this.showModalEdit = false;
+                    this.processing = false;
+                })
             },
         }
     }
