@@ -1,8 +1,8 @@
 <template>
     <div class="flex h-screen bg-gray-100 font-roboto">
-        <backend-sidebar />
+        <backend-sidebar :showSidebar="sidebar" />
         <div class="flex-1 flex flex-col overflow-hidden">
-            <backend-header />
+            <backend-header @toggleSidebar="toggleSidebar" />
 
             <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                 <flash-messages />
@@ -24,6 +24,17 @@
     import FlashMessages from "../Components/UI/FlashMessages";
     export default {
         name: "BackendLayout",
-        components: {FlashMessages, BackendHeader, BackendSidebar}
+        components: {FlashMessages, BackendHeader, BackendSidebar},
+        data() {
+            return {
+                sidebar: true,
+            }
+        },
+        methods: {
+            toggleSidebar(toggleData) {
+                this.sidebar = toggleData;
+                // console.log(this.sidebar)
+            }
+        }
     }
 </script>

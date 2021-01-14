@@ -13,6 +13,11 @@ import PortalVue from 'portal-vue';
 Vue.mixin({
     methods: {
         route: window.route,
+    },
+    data() {
+        return {
+            showingNavigation: false,
+        }
     }
 });
 

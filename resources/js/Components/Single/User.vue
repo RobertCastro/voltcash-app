@@ -136,7 +136,7 @@
                 this.form.rol = '';
             },
             sendInfo(userid) {
-                // console.log(userid)
+                console.log(userid)
                 this.$emit('openModalEdit', userid)
             }
         },
