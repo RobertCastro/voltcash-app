@@ -1,34 +1,35 @@
 <template>
     <form
         @submit.prevent="$emit('submit')"
-        class="bg-white "
+        class="bg-gray-100 "
     >
-    <div class="mb-4">
+    <div class="mb-4 flex justify-between flex-row">
         <text-input
             label="Name"
             v-model="form.name"
             :error="errors.name"
+            class="w-1/2 m-5"
         />
-    </div>
-    <div class="mb-4">
         <text-input
             label="Email"
             v-model="form.email"
             :error="errors.email"
+            class="w-1/2 m-5"
         />
     </div>
-    <div class="mb-4">
+    <div class="mb-4 flex justify-between flex-row">
         <text-input
             label="Phone"
             v-model="form.phone"
             :error="errors.phone"
+            class="w-1/2 m-5"
         />
-    </div>
-    <div class="mb-4">
+   
         <text-input
             label="Password"
             v-model="form.password"
             :error="errors.password"
+            class="w-1/2 m-5"
         />
     </div>
     <div class="mb-4">

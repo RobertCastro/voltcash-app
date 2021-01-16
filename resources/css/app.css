@@ -64,3 +64,59 @@
     0% { transform: rotate(0deg) }
     100% { transform: rotate(360deg) }
 }
+
+/* STEPS FORM */
+
+li {
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  line-height: 2em;
+  border-radius: 1em;
+  background: #0e9f6e;
+  margin: 0 1em;
+  display: inline-block;
+  color: white;
+  position: relative;
+}
+
+/* li::before{
+  content: '';
+  position: absolute;
+  top: .9em;
+  left: -4em;
+  width: 4em;
+  height: .2em;
+  background: #0e9f6e;
+
+}
+li::after{
+  content: '';
+  position: absolute;
+  top: .9em;
+  left: -4em;
+  width: 4em;
+  height: .2em;
+  background: #0e9f6e;
+
+} */
+
+
+li:first-child::before {
+  display: none;
+}
+
+.active {
+  background: #0e9f6e;
+}
+
+.active ~ li {
+  background: #93d1c4;
+}
+
+.active ~ li::before {
+  background: #93d1c4;
+}
+
+
+/* END STEPS FORM */

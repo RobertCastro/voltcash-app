@@ -52,7 +52,9 @@ class StoreController extends Controller
     public function create()
     {
         $this->authorize('create', Store::class);
-        return "Can Create";
+        return Inertia::render('Stores/Create', [
+            
+        ]);
     }
 
     public function show(Store $store)
