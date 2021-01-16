@@ -21,12 +21,27 @@ class StoreController extends Controller
 
     public function index() {
 
+        $this->authorize("viewAny", Store::class);
+
+        if (!session()->has("search")) {
+            session()->put("search", null);
+            session()->put("state", null);
+        }
+
         try {
 
-            $this->authorize("viewAny", Store::class);
+            $stores = Store::orderByDesc('created_at')
+                ->filter(request()->only("search", "state"))
+                ->paginate(20);
+
             return Inertia::render("Stores/Index", [
-                "stores" => Store::paginate(10)
+                "stores" => $stores,
+                "filters" => session()->only(["search", "state"]),
             ]);
+
+            // return Inertia::render("Stores/Index", [
+            //     "stores" => Store::paginate(10)
+            // ]);
             
         } catch (\Throwable $th) {
             throw $th;

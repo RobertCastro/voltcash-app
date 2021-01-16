@@ -1,7 +1,11 @@
 <template>
     <tr class="hover:bg-gray-100 focus-within:bg-gray-100">
         <td class="border-t px-6 py-4 flex items-center focus:text-indigo-500">
+             <button
+                class="px-6 py-4 flex items-center focus:text-green-500 cursor-pointer focus:outline-none focus:ring focus:font-bold"
+                @click="showModalDetail = true">
             {{ store.legal_name }}
+            </button>
         </td>
         <td class="border-t">
             {{ formattedDate }}
@@ -15,50 +19,36 @@
 
         <td class="border-t w-56">
             <div class="flex justify-center items-center">
-                <inertia-link
-                    :href="route('stores.show', store.id)"
-                    class="disabled text-xs px-4 py-2 rounded-full bg-gray-200 hover:bg-hp-400 hover:text-black text-gray-800 inline-flex items-center"
-                    v-if="!store.deleted_at && $permissions.can([{name: 'show stores'}, {name: 'show own stores', owner: store.user_id}])"
-                >
-                Detail
-                </inertia-link>
-                <inertia-link
-                    :href="route('stores.edit', store.id)"
-                    class="disabled text-xs px-4 py-2 rounded-full bg-gray-200 hover:bg-hp-400 hover:text-black text-gray-800 inline-flex items-center"
-                    v-if="!store.deleted_at && $permissions.can([{name: 'update stores'}, {name: 'update own stores', owner: store.user_id}])"
-                >
+                <button
+                    @click="sendInfo(store.id)"
+                    class="disabled text-xs px-4 py-1 mr-3 rounded-xl shadow-lg bg-indigo-500 font-bold hover:bg-hp-400 text-gray-100 inline-flex items-center">
                 Edit
-                </inertia-link>
-                    <button
-                        class="text-xs px-4 py-2 rounded-full bg-red-200 hover:bg-hp-400 hover:text-black text-gray-800 inline-flex items-center"
-                        v-if="!store.deleted_at && $permissions.can([{name: 'delete stores'}, {name: 'delete own stores', owner: store.user_id}])"
-                        @click="remove(store)"
-                    >
+                </button>
+                <button
+                    class="disabled text-xs px-4 py-1 rounded-xl shadow-lg bg-red-500 font-bold hover:bg-hp-400 text-gray-100 inline-flex items-center"
+                    @click="showModalDelete = true" >
                     Delete
-                    </button>
-                    <button
-                        class="text-xs px-4 py-2 rounded-full bg-red-200 hover:bg-hp-400 hover:text-black text-gray-800 inline-flex items-center"
-                        v-if="store.deleted_at && $permissions.can([{name: 'restore stores'}, {name: 'restore own stores', owner: store.user_id}])"
-                        @click="restore(store)"
-                    >
+                </button>
+                <button
+                    class="disabled text-xs px-4 py-1 rounded-xl shadow-lg bg-indigo-400 font-bold hover:bg-hp-400 text-gray-100 inline-flex items-center"
+                    @click="restore(store)"
+                    v-if="store.deleted_at" >
                     Restore
-                    </button>
+                </button>
+                <button
+                    class="px-4 flex items-center cursor-pointer"
+                    @click="showModalDetail = true"
+                    v-if="!store.deleted_at" >
+                    <svg
+                        class="block w-6 h-6 fill-gray-400"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20">
+                        <polygon points="12.95 10.707 13.657 10 8 4.343 6.586 5.757 10.828 10 6.586 14.243 8 15.657 12.95 10.707" />
+                    </svg>
+                </button>
+
             </div>
         </td>
-
-        <!-- <td class="border-t w-px">
-            <inertia-link
-                class="px-4 flex items-center"
-                :href="route('dashboard.edit', dato.id)"
-            >
-                <svg
-                    class="block w-6 h-6 fill-gray-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20">
-                    <polygon points="12.95 10.707 13.657 10 8 4.343 6.586 5.757 10.828 10 6.586 14.243 8 15.657 12.95 10.707" />
-                </svg>
-            </inertia-link>
-        </td> -->
     </tr>
 </template>
 
